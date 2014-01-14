@@ -1,8 +1,18 @@
 MtaSms::Application.routes.draw do
 
-  devise_for :users
+devise_for :users
 
-  root :to => "home#index"
+resources :line
+
+# Allows to create custom routes
+# devise_for :settings, :controllers => {sessions: 'settings/sessions'}
+
+# Added the action settings
+  # devise_scope :user do
+  #   get 'users/settings', :to =>'sessions#settings'
+  # end
+
+  get '/' => "home#index"
 
   
   # The priority is based upon order of creation:
