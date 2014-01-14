@@ -24,7 +24,7 @@ describe UsersController do
 			visit '/'
 			click_link "logout"
 			page.should_not have_content(@email)
-			click_link "sign-in"
+			click_link "Log In"
 			fill_in :Email, with: @email
 			fill_in :Password, with: @password
 			click_button "Sign in"
