@@ -1,1 +1,4 @@
 <h1><%=@line.name%></h1>
+<h2><%=@line.status%></h2>
+
+<h2><%=@line.description.gsub!(/\[+/, ' ').gsub!(/\]+/, ' ') if @line.description? %></h2>

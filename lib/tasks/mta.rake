@@ -1,6 +1,9 @@
 task :fetch_mta_data do
 
     #Opens and Cleans XML
+    require 'open-uri'
+    require 'sanitize'
+
     filestring = ""
     f = open('http://www.mta.info/status/serviceStatus.txt')
     f.each {|line| filestring += line }
@@ -33,15 +36,11 @@ task :fetch_mta_data do
 
     description =[]
     status_description.each do |status|
-    description << status
+    description << status.join.split.join(" ")
     end
 
     lines.each_with_index do |thing, index|
-        Line.create({
-            name: lines[index],
-            status: status[index],
-            description: description[index]
-        })
+        Line.create(name: lines[index], status: status[index], description: description[index])
     end
 
 end

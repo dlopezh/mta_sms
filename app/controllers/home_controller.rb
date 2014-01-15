@@ -5,22 +5,8 @@ require 'sanitize'
 
 def index
 
-filestring = ""
-
-    f = open('http://www.mta.info/status/serviceStatus.txt')
-    f.each {|line| filestring += line }
-  
-    filestring.gsub!(/&lt;/, "<").gsub!(/&gt;/, ">").gsub!(/&amp;nbsp;/, " ").gsub!(/&amp;/, "")
-    
-    doc = Nokogiri::HTML(filestring)
-
-
-    time = doc.xpath('//service//timestamp')
-
-    @last_update = Sanitize.clean!("#{time}")	
-
 @lines = Line.all
-
+@update_time = Line.find(1).updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%M%p")
 end
 
 

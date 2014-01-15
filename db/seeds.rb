@@ -1,57 +1,42 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+#Opens and Cleans XML
+require 'open-uri'
+require 'sanitize'
 
-# lines = ["123", "456", "7", "ACE", "BDFM", "G", "JZ", "L", "NQR", "S", "SIR"]
+filestring = ""
+f = open('http://www.mta.info/status/serviceStatus.txt')
+f.each {|line| filestring += line }
+filestring.gsub!(/&lt;/, "<").gsub!(/&gt;/, ">").gsub!(/&amp;nbsp;/, " ").gsub!(/&amp;/, "")
 
-# lines.each do |line|
-# 	Line.create(name: line)
-# end
+#Parse XML
+doc = Nokogiri::HTML(filestring)
 
-    #Opens and Cleans XML
+#Returns last update time
+time = doc.xpath('//service//timestamp')
+last_update = Sanitize.clean!("#{time}")
 
-    require 'open-uri'
-	require 'sanitize'
+#RETURNS LINES ARRAY
+lines =[] 
+names = doc.xpath('//subway//name').map {|name| name}
+names.each do |name|
+clean_name = Sanitize.clean!("#{name}")
+lines << clean_name
+end
 
-    filestring = ""
-    f = open('http://www.mta.info/status/serviceStatus.txt')
-    f.each {|line| filestring += line }
-    filestring.gsub!(/&lt;/, "<").gsub!(/&gt;/, ">").gsub!(/&amp;nbsp;/, " ").gsub!(/&amp;/, "")
+#RETURNS STATUS ARRAY
+line_status = []
+status = doc.xpath('//subway//name').map {|name| name.next_sibling.text}
+status.each do |status|
+line_status << status
+end
 
-    #Parse XML
-    doc = Nokogiri::HTML(filestring)
+#RETURNS DESCRIPTION ARRAY
+status_description = doc.xpath('//subway//name').map {|name| name.next_sibling.next_sibling.text.split("\n").drop(2)}
 
-    #Returns last update time
-    time = doc.xpath('//service//timestamp')
-    last_update = Sanitize.clean!("#{time}")
+description =[]
+status_description.each do |status|
+description << status.join.split.join(" ")
+end
 
-    #RETURNS LINES ARRAY
-    lines =[] 
-    names = doc.xpath('//subway//name').map {|name| name}
-    names.each do |name|
-    clean_name = Sanitize.clean!("#{name}")
-    lines << clean_name
-    end
-
-    #RETURNS STATUS ARRAY
-    line_status = []
-    status = doc.xpath('//subway//name').map {|name| name.next_sibling.text}
-    status.each do |status|
-    line_status << status
-    end
-
-    #RETURNS DESCRIPTION ARRAY
-    status_description = doc.xpath('//subway//name').map {|name| name.next_sibling.next_sibling.text.split("\n").drop(2)}
-
-    description =[]
-    status_description.each do |status|
-    description << status
-    end
-
-    lines.each_with_index do |thing, index|
-    	Line.create(name: lines[index], status: status[index], description: description[index])
-    end
+lines.each_with_index do |thing, index|
+	Line.create(name: lines[index], status: status[index], description: description[index])
+end

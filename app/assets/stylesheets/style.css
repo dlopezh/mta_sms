@@ -12,10 +12,14 @@ header {
 	border-radius: 50%;
 	width: 80px;
 	height: 80px;
-	background-color: red;
+	background-color: green;
 	text-align: center;
 	float: left;
     padding: 4px 3px 0 3px;
     margin-left: 10px;	
 	/* width and height can be anything, as long as they're equal */
+}
+
+.delays {
+ background-color: yellow;
 }

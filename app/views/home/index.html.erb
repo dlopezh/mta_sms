@@ -1,11 +1,10 @@
 <h1>Welcome</h1>
 <% @lines.each do |line| %>
-	<div class="circle">
+	<div class="circle <% if line.status != "GOOD SERVICE" %> <%="delays"%> <% end %> ">
 		<h3>
 			<a href="/line/<%=line.id%>"><%=line.name%></a>
 		</h3>
 	</div>
 <% end %>
 
-<h3><%= @last_update%></h3>
-
+<h3><%=@update_time%></h3>
