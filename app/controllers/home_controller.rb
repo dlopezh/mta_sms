@@ -5,11 +5,13 @@ require 'sanitize'
 
 def index
 
-@lines = Line.all
-@update_time = Line.first.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%M%p")
+	@lines = Line.all
+
+	begin
+		@update_time = Line.first.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%M%p")
+	rescue 
+	end
 
 end
-
-
 
 end
