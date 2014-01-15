@@ -1,46 +1,51 @@
-task :fetch_mta_data do
+require 'open-uri'
+require 'sanitize'
 
-    #Opens and Cleans XML
-    require 'open-uri'
-    require 'sanitize'
+namespace :mta do
+    task :fetch => :environment do
 
-    filestring = ""
-    f = open('http://www.mta.info/status/serviceStatus.txt')
-    f.each {|line| filestring += line }
-    filestring.gsub!(/&lt;/, "<").gsub!(/&gt;/, ">").gsub!(/&amp;nbsp;/, " ").gsub!(/&amp;/, "")
+        Line.destroy_all
+        
+        #Opens and Cleans XML
+        filestring = ""
+        f = open('http://www.mta.info/status/serviceStatus.txt')
+        f.each {|line| filestring += line }
+        filestring.gsub!(/&lt;/, "<").gsub!(/&gt;/, ">").gsub!(/&amp;nbsp;/, " ").gsub!(/&amp;/, "")
 
-    #Parse XML
-    doc = Nokogiri::HTML(filestring)
+        #Parse XML
+        doc = Nokogiri::HTML(filestring)
 
-    #Returns last update time
-    time = doc.xpath('//service//timestamp')
-    last_update = Sanitize.clean!("#{time}")
+        #Returns last update time
+        time = doc.xpath('//service//timestamp')
+        last_update = Sanitize.clean!("#{time}")
 
-    #RETURNS LINES ARRAY
-    lines =[] 
-    names = doc.xpath('//subway//name').map {|name| name}
-    names.each do |name|
-    clean_name = Sanitize.clean!("#{name}")
-    lines << clean_name
-    end
+        #RETURNS LINES ARRAY
+        lines =[] 
+        names = doc.xpath('//subway//name').map {|name| name}
+        names.each do |name|
+        clean_name = Sanitize.clean!("#{name}")
+        lines << clean_name
+        end
 
-    #RETURNS STATUS ARRAY
-    line_status = []
-    status = doc.xpath('//subway//name').map {|name| name.next_sibling.text}
-    status.each do |status|
-    line_status << status
-    end
+        #RETURNS STATUS ARRAY
+        line_status = []
+        status = doc.xpath('//subway//name').map {|name| name.next_sibling.text}
+        status.each do |status|
+        line_status << status
+        end
 
-    #RETURNS DESCRIPTION ARRAY
-    status_description = doc.xpath('//subway//name').map {|name| name.next_sibling.next_sibling.text.split("\n").drop(2)}
+        #RETURNS DESCRIPTION ARRAY
+        status_description = doc.xpath('//subway//name').map {|name| name.next_sibling.next_sibling.text.split("\n").drop(2)}
 
-    description =[]
-    status_description.each do |status|
-    description << status.join.split.join(" ")
-    end
+        description =[]
+        status_description.each do |status|
+        description << status.join.split.join(" ")
+        end
 
-    lines.each_with_index do |thing, index|
-        Line.create(name: lines[index], status: status[index], description: description[index])
+        lines.each_with_index do |thing, index|
+            Line.create(name: lines[index], status: status[index], description: description[index])
+        end
+
     end
 
 end
