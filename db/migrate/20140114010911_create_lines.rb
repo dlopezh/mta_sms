@@ -3,7 +3,7 @@ class CreateLines < ActiveRecord::Migration
     create_table :lines do |t|
       t.string :name
       t.string :status
-      t.string :description
+      t.text :description
 
       t.timestamps
     end

@@ -1,9 +1,9 @@
 MtaSms::Application.routes.draw do
 
-devise_for :users
+devise_for :user
 resources :line
 
-  get '/users/settings' => 'users#settings'
+  get '/users/settings' => 'user#settings'
 
   get '/' => "home#index"
 

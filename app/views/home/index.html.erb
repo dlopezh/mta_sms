@@ -1,0 +1,11 @@
+<h1>Welcome</h1>
+<% @lines.each do |line| %>
+	<div class="circle">
+		<h3>
+			<a href="/line/<%=line.id%>"><%=line.name%></a>
+		</h3>
+	</div>
+<% end %>
+
+<h3><%= @last_update%></h3>
+

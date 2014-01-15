@@ -1,22 +1,6 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-# lines = ["123", "456", "7", "ACE", "BDFM", "G", "JZ", "L", "NQR", "S", "SIR"]
-
-# lines.each do |line|
-# 	Line.create(name: line)
-# end
+task :fetch_mta_data do
 
     #Opens and Cleans XML
-
-    require 'open-uri'
-	require 'sanitize'
-
     filestring = ""
     f = open('http://www.mta.info/status/serviceStatus.txt')
     f.each {|line| filestring += line }
@@ -53,5 +37,11 @@
     end
 
     lines.each_with_index do |thing, index|
-    	Line.create(name: lines[index], status: status[index], description: description[index])
+        Line.create({
+            name: lines[index],
+            status: status[index],
+            description: description[index]
+        })
     end
+
+end
