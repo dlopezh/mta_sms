@@ -7,6 +7,7 @@ resources :line
 
   get '/' => "home#index"
 
+  match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

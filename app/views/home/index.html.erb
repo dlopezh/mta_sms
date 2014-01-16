@@ -1,4 +1,6 @@
 <h1>Welcome</h1>
+<div class="row">
+		<div class="col-md-12 center">
 <% @lines.each do |line| %>
 	<div class="circle <% if line.status != "GOOD SERVICE" %> <%="delays"%> <% end %> ">
 		<h3>
@@ -6,5 +8,6 @@
 		</h3>
 	</div>
 <% end %>
-<div class="clearfix"></div>
+</div>
+</div>
 <h3>Last updated 	<%=@update_time%></h3>

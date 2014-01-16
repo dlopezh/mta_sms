@@ -6,12 +6,15 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<%= render '/layouts/header' %>
-<div class="container">
-	<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-<%= yield %>
-</div>
-</body>
+	<body>
+		<div class="page-wrap">
+			<%= render '/layouts/header' %>
+		<div class="container">
+				<p class="notice"><%= notice %></p>
+			<p class="alert"><%= alert %></p>
+			<%= yield %>
+		</div>
+			<%= render '/layouts/register' %>
+		</div>
+	</body>
 </html>

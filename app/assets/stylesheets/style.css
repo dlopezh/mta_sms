@@ -1,8 +1,3 @@
-header {
-	width: 100%;
-	padding: 10px;
-}
-
 .sign-link  {
 	float: right;
 	margin-right: 20px;
@@ -16,10 +11,14 @@ header {
 	text-align: center;
 	float: left;
     padding: 4px 3px 0 3px;
-    margin-left: 10px;	
+    margin-left: 10px;
+    margin: 10px;	
 	/* width and height can be anything, as long as they're equal */
 }
 
 .delays {
  background-color: yellow;
+}
+
+.center {
 }
