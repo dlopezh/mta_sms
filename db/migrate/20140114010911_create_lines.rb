@@ -4,7 +4,6 @@ class CreateLines < ActiveRecord::Migration
       t.string :name
       t.string :status
       t.text :description
-
       t.timestamps
     end
   end

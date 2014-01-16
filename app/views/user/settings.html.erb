@@ -1,4 +1,4 @@
 <h1>Settings</h1>
 <h2>Name: <%=@user.first_name%> <%=@user.last_name%></h2>
 <h2>Email: <%=@user.email%></h2>
-<%= link_to "Destroy", admin_destroy_user_path(@user), method: :delete, data: { confirm: "You sure?" } %>
+<%= button_to "Delete Account",admin_destroy_user_path(@user), method: :delete, :class => "btn btn-default", data: { confirm: "You sure?" } %>

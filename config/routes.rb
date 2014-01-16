@@ -1,13 +1,20 @@
 MtaSms::Application.routes.draw do
 
-devise_for :user
+devise_for :user 
+
 resources :line
 
   get '/users/settings' => 'user#settings'
 
   get '/' => "home#index"
 
-  match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
+  post 'users/set_sms' => 'user#set_sms'
+
+  match 'users/:id' => 'user#delete_account', :via => :delete, :as => :admin_destroy_user
+
+  authenticated :user do 
+    root to: 'user#sms_setup'
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

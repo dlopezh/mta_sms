@@ -3,22 +3,64 @@
 	margin-right: 20px;
 }
 
-.circle {
-	border-radius: 50%;
-	width: 80px;
-	height: 80px;
-	background-color: green;
-	text-align: center;
+.delay-legend {
+	padding: 5px;
+	background-color: #FFB03B;
 	float: left;
-    padding: 4px 3px 0 3px;
-    margin-left: 10px;
+}
+
+.ok-legend {
+	padding: 5px;
+	background-color: #FFB03B;
+	float: left;
+}
+
+.center {
+	margin: 0 auto;
+}
+
+.sms-alert {
+	width: 400px;
+	text-align: center;
+}
+
+.top {
+	margin-top: 5px; 
+}
+
+.rectangle {
+	border-radius: 15px;
+	width: 80px;
+	height: 50px;
+	background-color: #468966;
+	float: left;
     margin: 10px;	
 	/* width and height can be anything, as long as they're equal */
 }
 
-.delays {
- background-color: yellow;
+.rectangle a {
+	text-decoration: none !important;
+	color: white;
 }
 
-.center {
+.rectangle p {
+	text-align: center;
+	line-height: 50px;
+	font-size: 21px;
+	color: white;
+}
+
+.delays {
+ background-color: #FFB03B;
+}
+
+header {
+	background-color: #B64926;
+	width: 100%;
+	position: relative;
+	min-height: 100px;
+}
+
+.btn {
+	margin-top: 5px;
 }

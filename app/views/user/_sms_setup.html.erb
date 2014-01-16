@@ -1,0 +1,15 @@
+<h3>SMS ALERT</h3>
+<form action="/users/set_sms" method="POST">
+<label for="Line">Line</label>
+	<%= token_tag :authenticity_token %>
+	<select name="line" id="line">
+	<% @lines.each do |line| %>
+		<option value="<%=line.id %>"><%=line.name %></option>
+	<% end %>
+	</select>
+	<label for="mobile">Mobile Number</label>
+	<input type="text" name="mobile" id="mobile">
+	<button action="submit">Save</button>
+</form>
+
+

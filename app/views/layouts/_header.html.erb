@@ -5,11 +5,7 @@
 	</h1>
 	<div class="sign-link">
 		<% if user_signed_in? %>
-                <p>Welcome, <%= current_user.first_name %></p>
-                <%= link_to "logout", destroy_user_session_path, method: :delete %>
-        <% else %>
-                <%= link_to "Log In", new_user_session_path %>
-                <%= link_to "Register",new_user_registration_path %>
+                <%= button_to "Log Out",destroy_user_session_path, method: :delete, :class => "btn btn-warning" %>
         <% end %>
     </div>
 </header>

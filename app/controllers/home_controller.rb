@@ -4,6 +4,8 @@ require 'open-uri'
 require 'sanitize'
 
 def index
+	
+	@user = current_user
 
 	@lines = Line.all
 

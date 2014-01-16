@@ -1,13 +1,16 @@
-<h1>Welcome</h1>
+<h2>MTA STATUS</h2>
+<div></div>
 <div class="row">
 		<div class="col-md-12 center">
 <% @lines.each do |line| %>
-	<div class="circle <% if line.status != "GOOD SERVICE" %> <%="delays"%> <% end %> ">
-		<h3>
+	<div class="rectangle <% if line.status != "GOOD SERVICE" %> <%="delays"%> <% end %> ">
+		<p>
 			<a href="/line/<%=line.id%>"><%=line.name%></a>
-		</h3>
+		</p>
 	</div>
 <% end %>
 </div>
 </div>
-<h3>Last updated 	<%=@update_time%></h3>
+<h3>Last updated <%=@update_time%></h3>
+<%= render '/layouts/register' unless current_user.present?%>
+<%= render '/user/sms_setup' if current_user.present?%>
