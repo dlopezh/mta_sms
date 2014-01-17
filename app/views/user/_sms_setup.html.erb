@@ -1,8 +1,8 @@
-<%= csrf_meta_tag %>
 <h3>SMS ALERT</h3>
 <form action="/users/set_sms" method="POST">
 <label for="Line">Line</label>
 	<%= token_tag :authenticity_token %>
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	<select name="line" id="line">
 	<% @lines.each do |line| %>
 		<option value="<%=line.id %>"><%=line.name %></option>
