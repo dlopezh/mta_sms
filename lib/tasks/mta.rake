@@ -2,6 +2,18 @@ require 'open-uri'
 require 'sanitize'
 
 namespace :mta do
+
+    task :text_em => :environment do
+        url = "https://api.sendhub.com/v1/messages/?username=9177559495\&api_key=5d04b7c26946c768565d4c10b00c11f58ac526a6"
+        @response= HTTParty.post(url, 
+        :body => { :contacts => ['+19177559495'],
+                    :text => 'testing from rake' 
+             }.to_json,
+    :headers => { 'Content-Type' => 'application/json' } )
+        puts @response
+    end
+
+
     task :fetch => :environment do
 
         Line.destroy_all

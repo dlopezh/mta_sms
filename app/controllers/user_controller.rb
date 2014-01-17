@@ -12,12 +12,6 @@ class UserController < ApplicationController
 
 	def send_sms
 		@lines = Line.all
-		#SEnd sms to direct phone number
-	# 	curl -H "Content-Type: application/json" -X POST --data '
-	# 	{ "contacts" : ["+19177559495"], 
-	# 		"text" : "Testing"}' 
-	# 		
-	# 
 end
 
 	def set_sms
