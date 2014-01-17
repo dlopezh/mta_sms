@@ -59,7 +59,20 @@ header {
 	width: 100%;
 	position: relative;
 	min-height: 100px;
+	text-align: center;
 }
+
+header h1 a {
+	line-height: 100px;
+	color: white;
+	text-decoration: none;
+}
+
+header h1 a:hover {
+	color: white;
+	text-decoration: none;
+}
+
 
 .btn {
 	margin-top: 5px;

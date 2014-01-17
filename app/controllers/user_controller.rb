@@ -29,5 +29,4 @@ end
     :headers => { 'Content-Type' => 'application/json' } )
 	redirect_to '/'
 	end
-
 end
